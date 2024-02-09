@@ -1,0 +1,28 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %}<title>Foydalanuvchi profili</title>{% endblock title %}
+
+{% block content %}
+
+<style>
+    .profile{margin-left: 30px}
+    .profile h2, h4 {text-align: center}
+    .profile input {border-radius: 7px}
+    .profile label {margin-right: 12px}
+    .profile p {text-align: center; font-size: 18px}
+</style>
+
+<div class="profile">
+    <h2>Assalomu alaykum {{ user.username }}</h2>
+    <img src="{{ profile.photo.url }}" alt="Rasm topilmadi" width="30%"><br>
+    <h5>Tug'ilgan yilingiz: {{ profile.date_of_birth }}</h5>
+    <label><em>Username:</em></label> <input value="{{ user.username }}" readonly placeholder="kiritilmagan"><br>
+    <label><em>Email:</em></label> <input value="{{ user.email }}" readonly placeholder="kiritilmagan"><br>
+    <label><em>First name:</em></label> <input value="{{ user.first_name }}" readonly placeholder="kiritilmagan"><br>
+    <label><em>Second name:</em></label> <input value="{{ user.last_name }}" readonly placeholder="kiritilmagan"><br>
+    <h4><a href="{% url 'password_change' %}">Parolni almashtirish</a> yoki <a href="{% url 'edit_user_informations' %}">Parolni o'zgartirish</a></h4>
+    <hr>
+    <p><a href="{% url 'logout' %}">Hisobdan chiqish</a></p>
+</div>
+
+{% endblock content %}

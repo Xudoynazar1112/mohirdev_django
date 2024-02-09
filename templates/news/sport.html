@@ -1,6 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
-
+{% load hitcount_tags %}
 {% block title %}    <title>Sport sahifa </title>{% endblock title %}
 
 {% block content %}
@@ -13,6 +13,8 @@
                   <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{{ sport.get_absolute_url }}"> <img src="{{ sport.image.url }}" alt=""> <span class="overlay"></span> </a>
                     <figcaption> <a href="{{ sport.get_absolute_url }}">{{ sport.title | truncatewords:5 }}</a> </figcaption>
                     <p>{{ sport.title }}</p>
+                      <p>Ko'rilganlar soni: <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for sport %}</p>
+
                   </figure>
                 </li>
                 {% endfor %}
