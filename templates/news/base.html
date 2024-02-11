@@ -1,8 +1,9 @@
 {% load static %}
+{% load i18n %}
 
 <html>
 <head>
-    {% block title %}    <title>Bosh sahifa </title>  {% endblock title %}
+    {% block title %}<title>{% blocktrans %}Bosh sahifa{% endblocktrans %} </title>{% endblock title %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,19 +30,21 @@
         <div class="header_top">
           <div class="header_top_left">
             <ul class="top_nav">
-              <li><a href="{% url 'home_page' %}">Bosh safifa</a></li>
-              <li><a href="#">Biz haqimizda</a></li>
-              <li><a href="{% url 'contact_page' %}">Aloqa</a></li>
+              <li><a href="{% url 'home_page' %}">{% blocktrans %}Bosh safifa{% endblocktrans %}</a></li>
+              <li><a href="#">{% blocktrans %}Biz haqimizda{% endblocktrans %}</a></li>
+              <li><a href="{% url 'contact_page' %}">{% blocktrans %}Aloqa{% endblocktrans %}</a></li>
               {% if user.is_authenticated and user.is_superuser %}
-              <li><a href="{% url 'admin_page' %}">Admin sahifasi</a> </li>
+              <li><a href="{% url 'admin_page' %}">{% blocktrans %}Admin sahifasi{% endblocktrans %}</a> </li>
               {% endif %}
+
             </ul>
+
           </div>
           <div class="header_top_right">
             {% if request.user.is_authenticated %}
-            <p><a href="{% url 'user_profile' %}" style="color: pink">Mening hisobim</a></p>
+            <p><a href="{% url 'user_profile' %}" style="color: pink">{% blocktrans %}Mening hisobim{% endblocktrans %}</a></p>
             {% else %}
-            <p><a href="{% url 'login' %}" style="color: pink">Saytga kirish - Login</a></p>
+            <p><a href="{% url 'login' %}" style="color: pink">{% blocktrans %}Saytga kirish - Login{% endblocktrans %}</a></p>
             {% endif %}
             <p>{% now "js F Y H:i" %}</p>
           </div>
@@ -63,25 +66,39 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav main_nav">
           <li class="active"><a href="{% url 'home_page' %}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-          <li><a href="{% url 'local_page' %}">Mahalliy</a></li>
-          <li > <a href="{% url 'foreign_page' %}">Xorij</a></li>
-          <li><a href="{% url 'tecnology_page' %}">Texnalogiya</a></li>
-          <li><a href="{% url 'sport_page' %}">Sport</a></li>
-          <li><a href="{% url 'contact_page' %}">Aloqa</a></li>
-          <li><a href="{% url 'page_404' %}">404 xatolik</a></li>
+          <li><a href="{% url 'local_page' %}">{% blocktrans %}Mahalliy{% endblocktrans %}</a></li>
+          <li > <a href="{% url 'foreign_page' %}">{% blocktrans %}Xorij{% endblocktrans %}</a></li>
+          <li><a href="{% url 'tecnology_page' %}">{% blocktrans %}Texnalogiya{% endblocktrans %}</a></li>
+          <li><a href="{% url 'sport_page' %}">{% blocktrans %}Sport{% endblocktrans %}</a></li>
+          <li><a href="{% url 'contact_page' %}">{% blocktrans %}Aloqa{% endblocktrans %}</a></li>
+          <li><a href="{% url 'page_404' %}">{% blocktrans %}404 xatolik{% endblocktrans %}</a></li>
           <li>
             <form method="get" action="{% url 'search_results' %}">
-              <input type="search" name="q" placeholder="Qidiruv..." class="form-control" style="margin: 6px 0 0 0">
+              <input type="search" name="q" placeholder="{% blocktrans %}Qidiruv{% endblocktrans %}..." class="form-control" style="margin: 6px 10px 0 0">
             </form>
           </li>
         </ul>
+        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+          <input name="next" type="hidden" value="{{ redirect_to }}">
+          <select name="language">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+                  <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                      {{ language.name_local }} ({{ language.code }})
+                  </option>
+              {% endfor %}
+          </select>
+          <input type="submit" value="Go">
+        </form>
       </div>
     </nav>
   </section>
   <section id="newsSection">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <div class="latest_newsarea"> <span>So'ngi yangiliklar</span>
+        <div class="latest_newsarea"> <span>{% blocktrans %}So'ngi yangiliklar{% endblocktrans %}</span>
           <ul id="ticker01" class="news_sticker">
             {% for news in latest_news %}
             <li><a href="#"><img src="{{ news.image.url }}" alt="">{{ news.title }}</a></li>
@@ -127,7 +144,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInRightBig">
-            <h2>Aloqa</h2>
+            <h2>{% blocktrans %}Aloqa{% endblocktrans %}</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             <address>
             Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567

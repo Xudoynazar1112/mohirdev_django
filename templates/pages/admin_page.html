@@ -1,13 +1,15 @@
 {% extends 'news/base.html' %}
-{% block title %}<title>Admin sahifasi</title>{% endblock title %}
+{% load i18n %}
+
+{% block title %}<title>{% blocktrans %}Admin sahifasi{% endblocktrans %}</title>{% endblock title %}
 {% block content %}
-<h1>Admin sahifasi</h1>
-<h3>Barcha adminlar</h3>
+<h1>{% blocktrans %}Admin sahifasi{% endblocktrans %}</h1>
+<h3>{% blocktrans %}Barcha adminlar{% endblocktrans %}</h3>
 <table class="table table-bordered table-responsive table-striped">
     <tr>
-        <th>Username</th>
-        <th>Ismi</th>
-        <th>Familyasi</th>
+        <th>{% blocktrans %}Foydalanuvchi nomi{% endblocktrans %}</th>
+        <th>{% blocktrans %}Ism{% endblocktrans %}</th>
+        <th>{% blocktrans %}Familyas{% endblocktrans %}</th>
     </tr>
     {% for user in admin_users %}
     <tr>
@@ -17,6 +19,6 @@
     </tr>
     {% endfor %}
 </table>
-<h3><a href="{% url 'create_page' %}" class="text-primary" style="margin-left: 30px">Yangilik qo'shish</a></h3>
+<h3><a href="{% url 'create_page' %}" class="text-primary" style="margin-left: 30px">{% blocktrans %}Yangilik qo'shish{% endblocktrans %}</a></h3>
 
 {% endblock content %}

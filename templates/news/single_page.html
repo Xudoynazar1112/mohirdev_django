@@ -1,7 +1,9 @@
 {% extends 'news/base.html' %}
 {% load static %}
 {% load hitcount_tags %}
-{% block title %}<title> Yolg'iz yangiliklar sahifa </title>{% endblock title %}
+{% load i18n %}
+
+{% block title %}<title>{% blocktrans %}Yolg'iz yangiliklar sahifa{% endblocktrans %}</title>{% endblock title %}
 
 {% block content %}
   <section id="contentSection">
@@ -10,8 +12,8 @@
         <div class="left_content">
           <div class="single_page">
             <ol class="breadcrumb">
-              <li><a href="{% url 'home_page' %}">Bosh sahifa</a></li>
-              <li><a href="{% url 'tecnology_page' %}}">Texnalogiya</a></li>
+              <li><a href="{% url 'home_page' %}">{% blocktrans %}Bosh sahifa{% endblocktrans %}</a></li>
+              <li><a href="{% url 'tecnology_page' %}}">{% blocktrans %}Texnalogiya{% endblocktrans %}</a></li>
               <li class="active">Mobile</li>
             </ol>
             <h1>{{ news.title }}</h1>
@@ -45,8 +47,8 @@
             </div>
             {% if request.user.is_authenticated and request.user.is_superuser %}
             <div class="card-footer text-center">
-              <a href="{% url 'update_page' news.slug %}" style="font-size:20px; padding:0 50px">Tahrirlash</a>
-              <a href="{% url 'delete_page' news.slug %}" style="font-size:20px; padding:0 50px">O'chirish</a>
+              <a href="{% url 'update_page' news.slug %}" style="font-size:20px; padding:0 50px">{% blocktrans %}Tahrirlash{% endblocktrans %}</a>
+              <a href="{% url 'delete_page' news.slug %}" style="font-size:20px; padding:0 50px">{% blocktrans %}O'chirish{% endblocktrans %}</a>
             </div>
             {% endif %}
             <div class="social_link">
@@ -141,7 +143,7 @@
                 </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="comments">
-                <p style="font-weight: 600; font-size: 20px">{{ comment_count }} ta izoh</p>
+                <p style="font-weight: 600; font-size: 20px">{{ comment_count }} {% blocktrans %}ta izoh{% endblocktrans %}</p>
                 <ul class="spost_nav">
                   {% for comment in comments %}
                   <li>
@@ -158,20 +160,20 @@
           </div>
           {% if user.is_authenticated %}
           <div class="single_sidebar wow fadeInDown col-md-8 card mb-4 mt-3">
-            <h2><span>Izoh qo'shish</span></h2>
+            <h2><span>{% blocktrans %}Izoh qo'shish{% endblocktrans %}</span></h2>
             <div class="card-body">
               <form method="post" style="margin-top: 1.3em">{% csrf_token %}
                 {{ comment_form.as_p }}
-                <button class="btn btn-primary btn-lg">Yuborish</button>
+                <button class="btn btn-primary btn-lg">{% blocktrans %}Yuborish{% endblocktrans %}</button>
               </form>
             </div>
           </div>
           {% else %}
           <div class="single_sidebar wow fadeInDown">
-            <h2><span>Izoh qo'shish</span></h2>
-            Faqatgina ro'yxatdan o'tgan foydalanuvchilargina izoh qoldirishi mumkin.<br>
-            <a href="{% url 'user_registr' %}" style="margin-right: 30px">Ro'yxatdan o'tish - Signup</a>
-            <a href="{% url 'login' %}">Saytga kiring - Login</a>
+            <h2><span>{% blocktrans %}Izoh qo'shish{% endblocktrans %}</span></h2>
+            {% blocktrans %}Faqatgina ro'yxatdan o'tgan foydalanuvchilargina izoh qoldirishi mumkin.{% endblocktrans %}<br>
+            <a href="{% url 'user_registr' %}" style="margin-right: 30px">{% blocktrans %}Ro'yxatdan o'tish{% endblocktrans %} - Signup</a>
+            <a href="{% url 'login' %}">{% blocktrans %}Saytga kiring{% endblocktrans %} - Login</a>
           </div>
 
           {% endif %}
